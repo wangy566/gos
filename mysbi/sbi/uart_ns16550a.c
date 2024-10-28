@@ -44,9 +44,11 @@ static void ns16550a_putc(char c)
 	writel(base_address + THR, c);
 }
 
+#define ZEBU_ENV
 void uart_ns16550a_init(unsigned long base, struct sbi_uart_ops *ops)
 {
-	unsigned int divisor = UART_CLK / (16 * UART_DEFAULT_BAUD);
+	//unsigned int divisor = UART_CLK / (16 * UART_DEFAULT_BAUD);
+	unsigned int divisor = 108;
 
 	base_address = base;
 
@@ -54,8 +56,13 @@ void uart_ns16550a_init(unsigned long base, struct sbi_uart_ops *ops)
 
 	while (readl(base_address + USR) & 0x1) ;
 
+#ifdef ZEBU_ENV
 	writel(base_address + DLH, 0);
 	writel(base_address + DLL, divisor);
+#else
+	writel(base_address + DLH, 0);
+	writel(base_address + DLL, divisor);
+#endif
 	writel(base_address + LCR, 0x03);
 	writel(base_address + FCR, 0x01);
 	writel(base_address + IER, 0);
