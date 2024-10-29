@@ -61,7 +61,7 @@ int shell_init(void *data)
 	}
 
 	print("open %s as console...\n", SHELL_DEVICE_NAME);
-
+#if 0
 	wait_for_ms(1000);
 	for (; left > 0; left--) {
 		print_backspace(sizeof
@@ -80,12 +80,13 @@ int shell_init(void *data)
 	print("\n");
 
 	test_cmd_auto_run();
+#endif
 
 run_shell:
 	print("Shell >> ");
 	tmp = shell_command;
 	while (1) {
-		ret = read(fd, buf, 0, 64, BLOCK);
+		ret = read(fd, buf, 0, 64, NONBLOCK);
 		for (i = 0; i < ret; i++) {
 			if (buf[i] < 0 || buf[i] == 255)
 				continue;

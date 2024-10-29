@@ -18,7 +18,7 @@ OUTPUT_ARCH("riscv")
 ENTRY(_start)
 SECTIONS
 {	
-	. = 0x80000000,
+	. = 0x1000000000,
 	.text.boot : { *(.text.boot) }
 	.text : { *(.text) }
 	.data : { *(.data) }
@@ -32,10 +32,10 @@ SECTIONS
 	.device_init_table : { *(.device_init_table) }
 	__device_init_table_end = .;
 
-	. = 0x801f0000,
+	. = 0x10001f0000,
 	__boot_option_start = .;
 
-	. = 0x80200000,
+	. = 0x1000200000,
 	__payload_start = .;
 
 }
