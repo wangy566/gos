@@ -32,10 +32,10 @@ SECTIONS
 	.device_init_table : { *(.device_init_table) }
 	__device_init_table_end = .;
 
-	. = 0x10001f0000,
+	. = 0x1000010000,
 	__boot_option_start = .;
 
-	. = 0x1000200000,
+	. = 0x1000020000,
 	__payload_start = .;
 
 }
